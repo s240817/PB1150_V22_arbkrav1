@@ -31,9 +31,9 @@ namespace PB1150_V22_arbkrav1
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.comPortSelect = new System.Windows.Forms.ComboBox();
@@ -316,17 +316,17 @@ namespace PB1150_V22_arbkrav1
             // 
             // chart1
             // 
-            chartArea3.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.chart1.Legends.Add(legend3);
+            chartArea4.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chart1.Legends.Add(legend4);
             this.chart1.Location = new System.Drawing.Point(8, 226);
             this.chart1.Name = "chart1";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Legend = "Legend1";
-            series3.Name = "Vba";
-            this.chart1.Series.Add(series3);
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series4.Legend = "Legend1";
+            series4.Name = "Vba";
+            this.chart1.Series.Add(series4);
             this.chart1.Size = new System.Drawing.Size(596, 279);
             this.chart1.TabIndex = 12;
             this.chart1.Text = "chart1";
@@ -383,7 +383,7 @@ namespace PB1150_V22_arbkrav1
             this.buttonSaveConfig.Margin = new System.Windows.Forms.Padding(2);
             this.buttonSaveConfig.Name = "buttonSaveConfig";
             this.buttonSaveConfig.Size = new System.Drawing.Size(68, 22);
-            this.buttonSaveConfig.TabIndex = 13;
+            this.buttonSaveConfig.TabIndex = 9;
             this.buttonSaveConfig.Text = "Save";
             this.buttonSaveConfig.UseVisualStyleBackColor = true;
             this.buttonSaveConfig.Click += new System.EventHandler(this.buttonSaveConfig_Click);
@@ -394,7 +394,7 @@ namespace PB1150_V22_arbkrav1
             this.buttonLoadConfig.Margin = new System.Windows.Forms.Padding(2);
             this.buttonLoadConfig.Name = "buttonLoadConfig";
             this.buttonLoadConfig.Size = new System.Drawing.Size(64, 22);
-            this.buttonLoadConfig.TabIndex = 12;
+            this.buttonLoadConfig.TabIndex = 8;
             this.buttonLoadConfig.Text = "Load";
             this.buttonLoadConfig.UseVisualStyleBackColor = true;
             this.buttonLoadConfig.Click += new System.EventHandler(this.buttonLoadConfig_Click);
@@ -405,7 +405,7 @@ namespace PB1150_V22_arbkrav1
             this.buttonWriteConfig.Margin = new System.Windows.Forms.Padding(2);
             this.buttonWriteConfig.Name = "buttonWriteConfig";
             this.buttonWriteConfig.Size = new System.Drawing.Size(68, 22);
-            this.buttonWriteConfig.TabIndex = 11;
+            this.buttonWriteConfig.TabIndex = 7;
             this.buttonWriteConfig.Text = "Write";
             this.buttonWriteConfig.UseVisualStyleBackColor = true;
             this.buttonWriteConfig.Click += new System.EventHandler(this.buttonWriteConfig_Click);
@@ -456,7 +456,7 @@ namespace PB1150_V22_arbkrav1
             this.textBoxAH.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAH.Name = "textBoxAH";
             this.textBoxAH.Size = new System.Drawing.Size(136, 20);
-            this.textBoxAH.TabIndex = 6;
+            this.textBoxAH.TabIndex = 5;
             // 
             // textBoxAL
             // 
@@ -464,7 +464,7 @@ namespace PB1150_V22_arbkrav1
             this.textBoxAL.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxAL.Name = "textBoxAL";
             this.textBoxAL.Size = new System.Drawing.Size(136, 20);
-            this.textBoxAL.TabIndex = 5;
+            this.textBoxAL.TabIndex = 4;
             // 
             // textBoxURV
             // 
@@ -472,7 +472,7 @@ namespace PB1150_V22_arbkrav1
             this.textBoxURV.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxURV.Name = "textBoxURV";
             this.textBoxURV.Size = new System.Drawing.Size(136, 20);
-            this.textBoxURV.TabIndex = 4;
+            this.textBoxURV.TabIndex = 3;
             // 
             // textBoxLRV
             // 
@@ -480,7 +480,7 @@ namespace PB1150_V22_arbkrav1
             this.textBoxLRV.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxLRV.Name = "textBoxLRV";
             this.textBoxLRV.Size = new System.Drawing.Size(136, 20);
-            this.textBoxLRV.TabIndex = 3;
+            this.textBoxLRV.TabIndex = 2;
             // 
             // textBoxTagname
             // 
@@ -488,7 +488,7 @@ namespace PB1150_V22_arbkrav1
             this.textBoxTagname.Margin = new System.Windows.Forms.Padding(2);
             this.textBoxTagname.Name = "textBoxTagname";
             this.textBoxTagname.Size = new System.Drawing.Size(136, 20);
-            this.textBoxTagname.TabIndex = 2;
+            this.textBoxTagname.TabIndex = 1;
             // 
             // buttonReadConfig
             // 
@@ -496,7 +496,7 @@ namespace PB1150_V22_arbkrav1
             this.buttonReadConfig.Margin = new System.Windows.Forms.Padding(2);
             this.buttonReadConfig.Name = "buttonReadConfig";
             this.buttonReadConfig.Size = new System.Drawing.Size(64, 22);
-            this.buttonReadConfig.TabIndex = 1;
+            this.buttonReadConfig.TabIndex = 6;
             this.buttonReadConfig.Text = "Read";
             this.buttonReadConfig.UseVisualStyleBackColor = true;
             this.buttonReadConfig.Click += new System.EventHandler(this.buttonReadConfig_Click);

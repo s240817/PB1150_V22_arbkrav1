@@ -475,49 +475,49 @@ namespace PB1150_V22_arbkrav1
                     toolStripStatusLabel1.Text = "[CONNECTED] ALARM LOW!";
                     if (blinkState)
                     {
-                        pictureBoxStatus.ImageLocation = "../../light_yellow.png";
+                        pictureBoxStatus.ImageLocation = "light_yellow.png";
                     }
                     else
                     {
-                        pictureBoxStatus.ImageLocation = "../../light_off.png";
+                        pictureBoxStatus.ImageLocation = "light_off.png";
                     }
                     break;
                 case Status.AlarmHigh:
                     toolStripStatusLabel1.Text = "[CONNECTED] ALARM HIGH!";
                     if (blinkState)
                     {
-                        pictureBoxStatus.ImageLocation = "../../light_yellow.png";
+                        pictureBoxStatus.ImageLocation = "light_yellow.png";
                     }
                     else
                     {
-                        pictureBoxStatus.ImageLocation = "../../light_off.png";
+                        pictureBoxStatus.ImageLocation = "light_off.png";
                     }
                     break;
                 case Status.Nominal:
                     toolStripStatusLabel1.Text = "[CONNECTED]";
                     if (blinkState)
                     {
-                        pictureBoxStatus.ImageLocation = "../../light_green.png";
+                        pictureBoxStatus.ImageLocation = "light_green.png";
                     }
                     else
                     {
-                        pictureBoxStatus.ImageLocation = "../../light_off.png";
+                        pictureBoxStatus.ImageLocation = "light_off.png";
                     }
                     break;
                 case Status.Fail:
                     toolStripStatusLabel1.Text = "[CONNECTED] FAIL!";
                     if (blinkState)
                     {
-                        pictureBoxStatus.ImageLocation = "../../light_red.png";
+                        pictureBoxStatus.ImageLocation = "light_red.png";
                     }
                     else
                     {
-                        pictureBoxStatus.ImageLocation = "../../light_off.png";
+                        pictureBoxStatus.ImageLocation = "light_off.png";
                     }
                     break;
                 default:
                     toolStripStatusLabel1.Text = "[DISCONNECTED]";
-                    pictureBoxStatus.ImageLocation = "../../light_off.png";
+                    pictureBoxStatus.ImageLocation = "light_off.png";
                     break;
             }
         }

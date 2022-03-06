@@ -646,10 +646,10 @@ namespace PB1150_V22_arbkrav1
                         StreamWriter outputFile = new StreamWriter(@saveFileDialog.FileName);
                         if (selectedrb == radioDisplayScaled)
                         {
-                            outputFile.WriteLine("timeStamp,analogScaledReading");
+                            outputFile.Write("timeStamp,analogScaledReading;");
                             for (int i = 0; i < timeStamp.Count; i++)
                             {
-                                outputFile.WriteLine(string.Format("{0},{1}", timeStamp[i], analogScaledReading[i]), CultureInfo.InvariantCulture);
+                                outputFile.Write(string.Format("{0},{1};", timeStamp[i], analogScaledReading[i]), CultureInfo.InvariantCulture);
                             }
                         }
                         else
@@ -657,7 +657,7 @@ namespace PB1150_V22_arbkrav1
                             outputFile.WriteLine("timeStamp,analogReading");
                             for (int i = 0; i < timeStamp.Count; i++)
                             {
-                                outputFile.WriteLine(string.Format("{0},{1}", timeStamp[i], analogReading[i]), CultureInfo.InvariantCulture);
+                                outputFile.Write(string.Format("{0},{1};", timeStamp[i], analogReading[i]), CultureInfo.InvariantCulture);
                             }
                         }
                         outputFile.Close();
@@ -689,7 +689,7 @@ namespace PB1150_V22_arbkrav1
 
                 string inputFileRead = inputFile.ReadToEnd();
                 inputFile.Close();
-                string[] lines = inputFileRead.Split('\n');
+                string[] lines = inputFileRead.Split(';');
                 string[] conf = lines[0].Split(',');
                 switch (conf[1])
                 {

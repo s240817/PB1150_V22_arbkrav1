@@ -238,105 +238,145 @@ namespace PB1150_V22_arbkrav1
 
         void dataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
-            string receivedData = ((SerialPort)sender).ReadLine();
-            receivedDataTextBox.Invoke((MethodInvoker)delegate
-               { receivedDataTextBox.AppendText("Received: " + receivedData + "\r\n"); });
-
-            var results = receivedData.Split(';');
-
-            bool success;
-
-            switch (results[0])
+            try
             {
-                case "readconf":
-                    textBoxTagname.Invoke((MethodInvoker)delegate
-                    { textBoxTagname.Text = results[1]; });
-                    textBoxLRV.Invoke((MethodInvoker)delegate
-                    { textBoxLRV.Text = results[2]; });
-                    textBoxURV.Invoke((MethodInvoker)delegate
-                    { textBoxURV.Text = results[3]; });
-                    textBoxAL.Invoke((MethodInvoker)delegate
-                    { textBoxAL.Text = results[4]; });
-                    textBoxAH.Invoke((MethodInvoker)delegate
-                    { textBoxAH.Text = results[5]; });
+                string receivedData = ((SerialPort)sender).ReadLine();
+            
+                receivedDataTextBox.Invoke((MethodInvoker)delegate
+                   { receivedDataTextBox.AppendText("Received: " + receivedData + "\r\n"); });
 
-                    showTemporaryLabelText("Instrument configuration read successfully.", 5000);
-                    break;
-                case "writeconf":
-                    switch (int.Parse(results[1]))
-                    {
-                        case 1:
-                            // success
-                            showTemporaryLabelText("Instrument configuration written successfully.", 5000);
-                            break;
-                        default:
-                            // failure
-                            showTemporaryLabelText("FAILED to write instrument configuration!\r\nDid you input the correct password?", 5000);
-                            break;
-                    }
-                    break;
-                case "readraw":
-                    int rawValue;
-                    success = int.TryParse(results[1], out rawValue);
-                    if (!success)
-                    {
-                        // TODO report failure
-                        return;
-                    }
-                    // display data
-                    analogReading.Add(rawValue);
-                    timeStamp.Add(DateTime.Now);
-                    chart1.Invoke((MethodInvoker)delegate {
-                        chart1.Series["Vba"].Points.DataBindXY(timeStamp, analogReading);
-                        chart1.Invalidate();
-                    });
+                var results = receivedData.Split(';');
 
-                    labelCurrentValue.Invoke((MethodInvoker)delegate {
-                        labelCurrentValue.Text = String.Format("Current value: {0}", rawValue);
-                    });
+                bool success;
+                int dataValue;
 
-                    break;
-                case "readscaled":
-                    double scaledValue;
-                    success = double.TryParse(results[1], NumberStyles.Float, CultureInfo.InvariantCulture, out scaledValue);
-                    if (!success)
-                    {
-                        // TODO report failure
-                        return;
-                    }
-                    // display data
-                    analogScaledReading.Add(scaledValue);
-                    timeStamp.Add(DateTime.Now);
-                    chart1.Invoke((MethodInvoker)delegate {
-                        chart1.Series["Vba"].Points.DataBindXY(timeStamp, analogScaledReading);
-                        chart1.Invalidate();
-                    });
+                switch (results[0])
+                {
+                    case "readconf":
+                        if (results.Length < 6)
+                        {
+                            receivedDataTextBox.Invoke((MethodInvoker)delegate
+                            { receivedDataTextBox.AppendText("Anomalous config data: " + receivedData + "\r\n"); });
+                            return;
+                        }
+                        textBoxTagname.Invoke((MethodInvoker)delegate
+                        { textBoxTagname.Text = results[1]; });
+                        textBoxLRV.Invoke((MethodInvoker)delegate
+                        { textBoxLRV.Text = results[2]; });
+                        textBoxURV.Invoke((MethodInvoker)delegate
+                        { textBoxURV.Text = results[3]; });
+                        textBoxAL.Invoke((MethodInvoker)delegate
+                        { textBoxAL.Text = results[4]; });
+                        textBoxAH.Invoke((MethodInvoker)delegate
+                        { textBoxAH.Text = results[5]; });
 
-                    labelCurrentValue.Invoke((MethodInvoker)delegate {
-                        labelCurrentValue.Text = String.Format("Current value: {0}", scaledValue);
-                    });
-                    break;
-                case "readstatus":
-                    switch (int.Parse(results[1]))
-                    {
-                        case 1:
-                            setStatus(Status.Fail);
-                            break;
-                        case 2:
-                            setStatus(Status.AlarmLow);
-                            break;
-                        case 3:
-                            setStatus(Status.AlarmHigh);
-                            break;
-                        default:
-                            setStatus(Status.Nominal);
-                            break;
-                    }
-                    break;
-                default:
-                    receivedDataTextBox.Invoke((MethodInvoker)delegate
-                    { receivedDataTextBox.AppendText("Unknown command: " + results[0] + "\r\n"); });
-                    break;
+                        showTemporaryLabelText("Instrument configuration read successfully.", 5000);
+                        break;
+                    case "writeconf":
+                        success = int.TryParse(results[1], out dataValue);
+                        if (!success)
+                        {
+                            // report failure
+                            receivedDataTextBox.Invoke((MethodInvoker)delegate
+                            { receivedDataTextBox.AppendText("Unknown data received: " + receivedData + "\r\n"); });
+                            return;
+                        }
+                        switch (dataValue)
+                        {
+                            case 1:
+                                // success
+                                showTemporaryLabelText("Instrument configuration written successfully.", 5000);
+                                break;
+                            default:
+                                // failure
+                                showTemporaryLabelText("FAILED to write instrument configuration!\r\nDid you input the correct password?", 5000);
+                                break;
+                        }
+                        break;
+                    case "readraw":
+                        int rawValue;
+                        success = int.TryParse(results[1], out rawValue);
+                        if (!success)
+                        {
+                            // report failure
+                            receivedDataTextBox.Invoke((MethodInvoker)delegate
+                            { receivedDataTextBox.AppendText("Unknown data received: " + receivedData + "\r\n"); });
+                            return;
+                        }
+                        // display data
+                        analogReading.Add(rawValue);
+                        timeStamp.Add(DateTime.Now);
+                        chart1.Invoke((MethodInvoker)delegate {
+                            chart1.Series["Vba"].Points.DataBindXY(timeStamp, analogReading);
+                            chart1.Invalidate();
+                        });
+
+                        labelCurrentValue.Invoke((MethodInvoker)delegate {
+                            labelCurrentValue.Text = String.Format("Current value: {0}", rawValue);
+                        });
+
+                        break;
+                    case "readscaled":
+                        double scaledValue;
+                        success = double.TryParse(results[1], NumberStyles.Float, CultureInfo.InvariantCulture, out scaledValue);
+                        if (!success)
+                        {
+                            // report failure
+                            receivedDataTextBox.Invoke((MethodInvoker)delegate
+                            { receivedDataTextBox.AppendText("Unknown data received: " + receivedData + "\r\n"); });
+                            return;
+                        }
+                        // display data
+                        analogScaledReading.Add(scaledValue);
+                        timeStamp.Add(DateTime.Now);
+                        chart1.Invoke((MethodInvoker)delegate {
+                            chart1.Series["Vba"].Points.DataBindXY(timeStamp, analogScaledReading);
+                            chart1.Invalidate();
+                        });
+
+                        labelCurrentValue.Invoke((MethodInvoker)delegate {
+                            labelCurrentValue.Text = String.Format("Current value: {0}", scaledValue);
+                        });
+                        break;
+                    case "readstatus":
+                        success = int.TryParse(results[1], out dataValue);
+                        if (!success)
+                        {
+                            // report failure
+                            receivedDataTextBox.Invoke((MethodInvoker)delegate
+                            { receivedDataTextBox.AppendText("Unknown data received: " + receivedData + "\r\n"); });
+                            return;
+                        }
+                        switch (dataValue)
+                        {
+                            case 1:
+                                setStatus(Status.Fail);
+                                break;
+                            case 2:
+                                setStatus(Status.AlarmLow);
+                                break;
+                            case 3:
+                                setStatus(Status.AlarmHigh);
+                                break;
+                            default:
+                                setStatus(Status.Nominal);
+                                break;
+                        }
+                        break;
+                    default:
+                        receivedDataTextBox.Invoke((MethodInvoker)delegate
+                        { receivedDataTextBox.AppendText("Unknown command: " + results[0] + "\r\n"); });
+                        break;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Error receiving serial data!");
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
+                setStatus(Status.Disconnected);
             }
         }
 
@@ -345,6 +385,8 @@ namespace PB1150_V22_arbkrav1
             if (serialPort.IsOpen)
             {
                 buttonLoadData.Enabled = false;
+                buttonSaveCSV.Enabled = false;
+                buttonSaveImage.Enabled = false;
 
                 sendDataTextBox.Invoke((MethodInvoker)delegate
                 { sendDataTextBox.Text = ""; });
@@ -567,10 +609,25 @@ namespace PB1150_V22_arbkrav1
         {
             if (!serialPort.IsOpen)
             {
+                setStatus(Status.Disconnected);
+                timerDataRead.Stop();
+                timerBlink.Stop();
                 MessageBox.Show("The serial port is not open!");
                 return;
             }
-            serialPort.WriteLine(data);
+            try
+            {
+                serialPort.WriteLine(data);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error writing to serial port!");
+                if (serialPort.IsOpen)
+                {
+                    serialPort.Close();
+                }
+                setStatus(Status.Disconnected);
+            }
             receivedDataTextBox.Invoke((MethodInvoker)delegate
             { receivedDataTextBox.AppendText("Sent: " + data + "\r\n"); });
         }
